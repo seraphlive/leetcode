@@ -1,1 +1,3 @@
-# Repo for my leetcode solutions
+# Leetcode
+
+* My leetcode solutions
