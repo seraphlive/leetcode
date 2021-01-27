@@ -51,8 +51,50 @@
 class Solution {
 public:
     vector<int> sortedSquares(vector<int>& nums) {
-        
+        vector<int> res(nums.size());
+        auto l = nums.begin();
+        auto r = nums.rbegin();
+        for (auto it = res.rbegin(); it != res.rend(); ++it) {
+            if (abs(*r) > abs(*l)) {
+                *it = pow(abs(*r), 2);
+                ++r;
+            } else {
+                *it = pow(abs(*l), 2);
+                ++l;
+            }
+        }
+        return res;
     }
 };
 // @lc code=end
 
+// One obvious solution with squaring and sorting
+// class Solution {
+// public:
+//     vector<int> sortedSquares(vector<int>& nums) {
+//         for (auto& n : nums) {
+//             n = pow(n, 2);
+//         }
+//         sort(nums.begin(), nums.end());
+//         return nums;
+//     }
+// };
+
+// No iterator
+// class Solution {
+// public:
+//     vector<int> sortedSquares(vector<int>& nums) {
+//         vector<int> res(nums.size());
+//         int l = 0, r = nums.size() - 1;
+//         for (int p = nums.size() - 1; p >= 0; --p) {
+//             if (abs(nums[r]) > abs(nums[l])) {
+//                 res[p] = pow(nums[r], 2);
+//                 --r;
+//             } else {
+//                 res[p] = pow(nums[l], 2);
+//                 ++l; 
+//             }
+//         }
+//         return res;
+//     }
+// };
