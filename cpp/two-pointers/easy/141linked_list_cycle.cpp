@@ -78,7 +78,8 @@
 // Time: O(n) Space: O(1)
 class Solution {
 public:
-    bool hasCycle(ListNode* head) {
+    bool hasCycle(ListNode* head)
+    {
         auto slow = head;
         auto fast = head;
         while (fast) {

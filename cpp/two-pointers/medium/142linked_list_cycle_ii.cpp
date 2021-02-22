@@ -92,9 +92,9 @@ public:
     ListNode* detectCycle(ListNode* head)
     {
         auto x = hasCycle(head);
-        if (!x) return NULL;
-        else
-        {
+        if (!x)
+            return NULL;
+        else {
             auto slow = head;
             auto fast = x;
             while (slow != fast) {

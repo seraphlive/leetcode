@@ -44,12 +44,14 @@
 // @lc code=start
 class Solution {
 public:
-    void merge(vector<int>& A, int m, vector<int>& B, int n) {
+    void merge(vector<int>& A, int m, vector<int>& B, int n)
+    {
         int p1 = m - 1, p2 = n - 1, l = m + n - 1;
         while (p1 >= 0 && p2 >= 0) {
             if (A[p1] > B[p2]) {
                 A[l--] = A[p1--];
-            } else {
+            }
+            else {
                 A[l--] = B[p2--];
             }
         }

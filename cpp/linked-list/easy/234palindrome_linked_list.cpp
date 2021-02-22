@@ -45,7 +45,8 @@
  */
 class Solution {
 public:
-    bool isPalindrome(ListNode* head) {
+    bool isPalindrome(ListNode* head)
+    {
         ListNode* prev = nullptr;
         auto slow = head;
         auto fast = head;

@@ -45,12 +45,14 @@
 // R&W two pointers but do a sway. Similar with 283.
 class Solution {
 public:
-    vector<int> sortArrayByParity(vector<int>& A) {
+    vector<int> sortArrayByParity(vector<int>& A)
+    {
         int r = 0, w = 0;
         while (r < A.size()) {
             if (A[r] % 2 == 0) {
                 swap(A[w++], A[r++]);
-            } else {
+            }
+            else {
                 ++r;
             }
         }

@@ -52,7 +52,8 @@
 // @lc code=start
 class Solution {
 public:
-    int findNumbers(vector<int>& nums) {
+    int findNumbers(vector<int>& nums)
+    {
         int res = 0;
         for (int n : nums) {
             res += (int)log10(n) & 1;

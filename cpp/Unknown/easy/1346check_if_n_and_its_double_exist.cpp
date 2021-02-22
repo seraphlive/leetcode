@@ -63,7 +63,8 @@
 // Using onordered_map
 class Solution {
 public:
-    bool checkIfExist(vector<int>& arr) {
+    bool checkIfExist(vector<int>& arr)
+    {
         unordered_map<int, int> s;
         for (int i : arr) {
             ++s[i];
@@ -71,7 +72,8 @@ public:
         for (int i : arr) {
             if (i != 0 && s.find(i * 2) != s.end()) {
                 return true;
-            } else if (i == 0 && s[i] >= 2) {
+            }
+            else if (i == 0 && s[i] >= 2) {
                 return true;
             }
         }

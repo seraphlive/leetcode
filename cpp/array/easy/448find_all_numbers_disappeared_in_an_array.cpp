@@ -36,7 +36,8 @@
 // Marking the vector
 class Solution {
 public:
-    vector<int> findDisappearedNumbers(vector<int>& nums) {
+    vector<int> findDisappearedNumbers(vector<int>& nums)
+    {
         int l = nums.size();
         for (int i = 0; i < l; ++i) {
             int t = abs(nums[i]) - 1;
@@ -44,9 +45,7 @@ public:
         }
         vector<int> res;
         for (int i = 0; i < l; ++i) {
-            if (nums[i] > 0) {
-                res.push_back(i + 1);
-            }
+            if (nums[i] > 0) res.push_back(i + 1);
         }
         return res;
     }

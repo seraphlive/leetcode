@@ -59,18 +59,18 @@
 // @lc code=start
 class Solution {
 public:
-    int nMax(vector<int>& nums, int n) {
+    int nMax(vector<int>& nums, int n)
+    {
         set<int> topN;
         for (auto i : nums) {
             topN.insert(i);
-            if (topN.size() > n) {
-                topN.erase(topN.begin());
-            }
+            if (topN.size() > n) topN.erase(topN.begin());
         }
         return (topN.size() < n) ? *(topN.rbegin()) : *(topN.begin());
     }
 
-    int thirdMax(vector<int>& nums) {
+    int thirdMax(vector<int>& nums)
+    {
         return nMax(nums, 3);
     }
 };

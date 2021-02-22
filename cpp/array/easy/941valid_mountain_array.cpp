@@ -53,7 +53,8 @@
 // Two-pointers
 class Solution {
 public:
-    bool validMountainArray(vector<int>& arr) {
+    bool validMountainArray(vector<int>& arr)
+    {
         int i = 0, j = arr.size() - 1;
         while (i + 1 < arr.size() && arr[i] < arr[i + 1]) {
             ++i;

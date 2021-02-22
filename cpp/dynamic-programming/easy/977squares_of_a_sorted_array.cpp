@@ -50,7 +50,8 @@
 // @lc code=start
 class Solution {
 public:
-    vector<int> sortedSquares(vector<int>& nums) {
+    vector<int> sortedSquares(vector<int>& nums)
+    {
         vector<int> res(nums.size());
         auto l = nums.begin();
         auto r = nums.rbegin();
@@ -58,7 +59,8 @@ public:
             if (abs(*r) > abs(*l)) {
                 *it = pow(abs(*r), 2);
                 ++r;
-            } else {
+            }
+            else {
                 *it = pow(abs(*l), 2);
                 ++l;
             }

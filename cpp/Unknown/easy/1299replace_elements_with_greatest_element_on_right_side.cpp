@@ -55,14 +55,13 @@
 // @lc code=start
 class Solution {
 public:
-    vector<int> replaceElements(vector<int>& arr) {
+    vector<int> replaceElements(vector<int>& arr)
+    {
         int max = -1;
         for (int i = arr.size() - 1; i >= 0; --i) {
             int tmp = arr[i];
             arr[i] = max;
-            if (tmp > max) {
-                max = tmp;
-            }
+            if (tmp > max) max = tmp;
         }
         return arr;
     }

@@ -37,13 +37,15 @@
 // @lc code=start
 class Solution {
 public:
-    int findMaxConsecutiveOnes(vector<int>& nums) {
+    int findMaxConsecutiveOnes(vector<int>& nums)
+    {
         int max_cnt = 0, cnt = 0;
         for (int i : nums) {
             if (i == 1) {
                 cnt++;
                 max_cnt = max(cnt, max_cnt);
-            } else {
+            }
+            else {
                 cnt = 0;
             }
         }

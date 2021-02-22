@@ -76,13 +76,15 @@
 // Read/write two pointers
 class Solution {
 public:
-    int removeDuplicates(vector<int>& A) {
+    int removeDuplicates(vector<int>& A)
+    {
         if (A.empty()) return 0;
         int r = 0, w = 0;
         while (r != A.size()) {
             if (A[r] == A[w]) {
                 ++r;
-            } else {
+            }
+            else {
                 A[++w] = A[r++];
             }
         }

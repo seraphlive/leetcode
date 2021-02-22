@@ -80,12 +80,11 @@
 // @lc code=start
 class Solution {
 public:
-    int removeElement(vector<int>& N, int V) {
+    int removeElement(vector<int>& N, int V)
+    {
         int c = 0;
         for (int i = 0; i < N.size(); ++i) {
-            if (N[i] != V) {
-                N[c++] = N[i];
-            }
+            if (N[i] != V) N[c++] = N[i];
         }
         return c;
     }

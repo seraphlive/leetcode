@@ -64,7 +64,8 @@
 // @lc code=start
 class Solution {
 public:
-    int heightChecker(vector<int>& heights) {
+    int heightChecker(vector<int>& heights)
+    {
         vector<int> bucket(101, 0);
         for (int h : heights) {
             ++bucket[h];
@@ -74,9 +75,7 @@ public:
             while (bucket[bptr] == 0) {
                 ++bptr;
             }
-            if (h != bptr) {
-                ++res;
-            }
+            if (h != bptr) ++res;
             --bucket[bptr];
         }
         return res;
