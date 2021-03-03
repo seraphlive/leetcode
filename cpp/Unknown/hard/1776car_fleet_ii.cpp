@@ -67,9 +67,30 @@
 // @lc code=start
 class Solution {
 public:
-    vector<double> getCollisionTimes(vector<vector<int>>& cars) {
-        
+    vector<double> getCollisionTimes(vector<vector<int>>& cars)
+    {
+        auto col_time = [&](int i, int j) {
+            return (double) (cars[i][0] - cars[j][0]) / (cars[j][1] - cars[i][1]);
+        };
+
+        vector<double> res(cars.size(), -1);
+        vector<double> stack;
+
+        for (int i = cars.size() - 1; i >= 0; --i) {
+            while (!stack.empty() && (cars[i][1] <= cars[stack.back()][1] ||
+                                      (stack.size() > 1 && col_time(i, stack.back()) >= res[stack.back()]))) {
+                stack.pop_back();
+            }
+            res[i] = stack.empty() ? -1 : col_time(i, stack.back());
+            stack.push_back(i);
+        }
+        return res;
     }
 };
+
+// [[1,2], [2,1], [5,3], [7,2]]
+// i=0
+// s=[0]
+// res=[1.00000, -1.00000,3.00000,-1.00000]                        
 // @lc code=end
 
