@@ -101,37 +101,65 @@ class Solution {
 public:
     int closestCost(vector<int>& baseCosts, vector<int>& toppingCosts, int target)
     {
-        t = target;
-        int ans = 0;
-        for (int i = 0; i < baseCosts.size(); ++i) {
-            ans = closest(dfs(toppingCosts, 0, baseCosts[i]), ans);
+        int res = INT_MAX;
+        for (int base : baseCosts) {
+            dfs(toppingCosts, target, base, res, 0);
         }
-        return ans;
+        return res;
     }
 
 private:
-    int t;
-
-    int closest(int a, int b)
+    void dfs(const vector<int>& top, int target, int sum, int& res, int idx)
     {
-        if (a == 0) return b;
-        if (b == 0) return a;
-        if (abs(t - a) == abs(t - b))
-            return a < b ? a : b;
-        return abs(t - a) < abs(t - b) ? a : b;
-    }
+        if (idx == top.size()) {
+            if (abs(target - sum) < abs(target - res))
+                res = sum;
+            else if (abs(target - sum) == abs(target - res) && sum < res)
+                res = sum;
+            return;
+        }
 
-    int dfs(vector<int>& top, int i, int sum)
-    {
-        if (i >= top.size()) return sum;
-
-        int a = dfs(top, i + 1, sum);
-        int b = dfs(top, i + 1, sum + top[i]);
-        int c = dfs(top, i + 1, sum + top[i] * 2);
-        
-        sum = closest(a, closest(b, c));
-        return sum;
+        dfs(top, target, sum, res, idx + 1);
+        dfs(top, target, sum + top[idx], res, idx + 1);
+        dfs(top, target, sum + top[idx] * 2, res, idx + 1);
     }
 };
 // @lc code=end
 
+// Another dfs
+// class Solution {
+// public:
+//     int closestCost(vector<int>& baseCosts, vector<int>& toppingCosts, int target)
+//     {
+//         t = target;
+//         int ans = 0;
+//         for (int i = 0; i < baseCosts.size(); ++i) {
+//             ans = closest(dfs(toppingCosts, 0, baseCosts[i]), ans);
+//         }
+//         return ans;
+//     }
+
+// private:
+//     int t;
+
+//     int closest(int a, int b)
+//     {
+//         if (a == 0) return b;
+//         if (b == 0) return a;
+//         if (abs(t - a) == abs(t - b))
+//             return a < b ? a : b;
+//         return abs(t - a) < abs(t - b) ? a : b;
+//     }
+
+//     int dfs(vector<int>& top, int i, int sum)
+//     {
+//         if (i >= top.size()) return sum;
+
+//         int a = dfs(top, i + 1, sum);
+//         int b = dfs(top, i + 1, sum + top[i]);
+//         int c = dfs(top, i + 1, sum + top[i] * 2);
+        
+//         sum = closest(a, closest(b, c));
+//         return sum;
+//     }
+// };
