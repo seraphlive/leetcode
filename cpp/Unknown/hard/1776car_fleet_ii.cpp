@@ -65,6 +65,7 @@
  */
 
 // @lc code=start
+// Mono-stack
 class Solution {
 public:
     vector<double> getCollisionTimes(vector<vector<int>>& cars)
