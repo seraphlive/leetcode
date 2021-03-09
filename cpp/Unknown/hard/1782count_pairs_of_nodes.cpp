@@ -64,31 +64,66 @@
  * 
  */
 
+// for q in queries:
+//     point a, b: (a<b: no duplicate count in answer)
+//     find d[a]+d[b]-emap[a,b] > q, get the cnt;
+//     // Can't caculate directly as we don't know the nodes with no edges, will TLE.
+//     // Because combination of n is too big.
+//     // But we have at most 10^5 emap[a,b] > 0. Not too much.
+//     // So divide into two situation:
+//     // (Note: Remember we only have nodes with edges in d and emap)
+//     a. for d[a]+d[b]-emap[a,b] > q && emap[a,b] > 0:
+//         caculate directly -> s1
+//     b. for d[a]+d[b]-emap[a,b] > q && emap[a,b] = 0:
+//         // Still can't caculate directly, find a work-around.
+//         // What we want === d[a]+d[b]>q && emap[a,b]==0.
+//         // We can caculate d[a]+d[b]>q (including emap[a,b] >0 || ==0) as s3,
+//         // And d[a]+d[b] && emap[a,b]>0 as s2,
+//         // Then s3 - s2;
+//         1) find d[a]+d[b] > q: // use two pointers for sorted d
+//             for j from begin and i from end to j, before they meet:
+//                 find the min j to make d[j]+d[i]>q, the all points between i-j count
+//                 s3 += i-j
+//             ->s3
+//         2) find d[a]+d[b] > q && emap[a,b]>0:
+//             caculate directly -> s2 // just situation a but keeping duplicate e.
+//     corresponding ans = s1 + s3 - s2
+
+//        ans                     s3: d[a]+d[b]>q
+//  ----------------------     ------------------------
+//  |    s1        |     |     |                      |
+//  |              |   --|---->|----------------------| 
+//  |  emap[a,b]>0 |  =0 |     |       s2             |
+//  |              |     |     | find d[a]+d[b] > q   |
+//  |              |     |     |        && emap[a,b]>0|
+//  -----------------------    ------------------------
+
 // @lc code=start
 class Solution {
 public:
     vector<int> countPairs(int n, vector<vector<int>>& edges, vector<int>& queries)
     {
         vector<int> d(n + 1);
-        unordered_map<int, int> cnt;
+        unordered_map<int, int> cmap;
         for (auto& e : edges) {
             int a = e[0];
             int b = e[1];
             if (a > b) swap(a, b);
-            ++cnt[a * 100000 + b];
+            ++cmap[a * 100000 + b];
             ++d[a];
             ++d[b];
         }
         vector<int> ds(d.begin() + 1, d.end());
         sort(ds.begin(), ds.end());
-        vector<int> res;
+        vector<int> ans;
 
         for (auto& q : queries) {
             int s1 = 0;
             int s2 = 0;
             int s3 = 0;
-            for (auto [k, v] : cnt) {
-                int a = k / 100000, b = k % 100000;
+            for (auto [k, v] : cmap) {
+                int a = k / 100000;
+                int b = k % 100000;
                 if (d[a] + d[b] - v > q) ++s1;
                 if (d[a] + d[b] > q) ++s2;
             }
@@ -96,10 +131,9 @@ public:
                 while (j < i && ds[j] + ds[i] <= q) ++j;
                 if (j < i && ds[j] + ds[i] > q) s3 += i - j;
             }
-            res.push_back(s1 + s3 - s2);
+            ans.push_back(s1 + s3 - s2);
         }
-        return res;
+        return ans;
     }
 };
 // @lc code=end
-
