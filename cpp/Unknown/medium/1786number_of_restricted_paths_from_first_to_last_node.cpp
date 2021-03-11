@@ -70,11 +70,13 @@
  * 
  * 
  */
+// Graph + DP
 // Run Dijkstra from n:
 // dist[u] : distance from u to n; cnt[u] : number of rpath from u to n;
 // for each node u visited:
 //     update cnt[u] = sum of cnt[v] where v is neighbor of u && dist[u] > dist[v]
 // return cnt[0]
+// TODO: Revisit after graph algorithms learned.
 // @lc code=start
 class Solution {
     using PII = pair<int, int>;
