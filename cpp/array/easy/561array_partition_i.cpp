@@ -50,49 +50,49 @@
  */
 
 // @lc code=start
+// O(nlogn)
 class Solution {
 public:
     int arrayPairSum(vector<int>& nums)
     {
-        const int maxValue = 10000;
-        array<int, 2 * maxValue + 1> c{};
-
-        for (int num : nums) ++c[num + maxValue];
-
-        int res = 0;
-        int n = -maxValue;
-        bool first = true;
-
-        while (n <= maxValue) {
-            if (!c[n + maxValue]) {
-                ++n;
-                continue;
-            }
-            if (first) {
-                res += n;
-                first = false;
-            }
-            else {
-                first = true;
-            }
-            --c[n + maxValue];
+        int sum = 0;
+        sort(nums.begin(), nums.end());
+        for (int i = 0; i < nums.size(); i += 2) {
+            sum += nums[i];
         }
-        return res;
+        return sum;
     }
 };
+
 // @lc code=end
 
-// O(nlogn)
 // class Solution {
 // public:
 //     int arrayPairSum(vector<int>& nums)
 //     {
-//         int sum = 0;
-//         sort(nums.begin(), nums.end());
-//         for (int i = 0; i < nums.size(); i += 2) {
-//             sum += nums[i];
+//         const int maxValue = 10000;
+//         array<int, 2 * maxValue + 1> c{};
+
+//         for (int num : nums) ++c[num + maxValue];
+
+//         int res = 0;
+//         int n = -maxValue;
+//         bool first = true;
+
+//         while (n <= maxValue) {
+//             if (!c[n + maxValue]) {
+//                 ++n;
+//                 continue;
+//             }
+//             if (first) {
+//                 res += n;
+//                 first = false;
+//             }
+//             else {
+//                 first = true;
+//             }
+//             --c[n + maxValue];
 //         }
-//         return sum;
+//         return res;
 //     }
 // };
-
