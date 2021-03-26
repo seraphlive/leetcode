@@ -55,7 +55,6 @@
  * 
  * 
  */
-// TODO: BFS and DP method
 // @lc code=start 
 // Reverse the process. Find all reachable nodes of P and A.
 // ans = R(P) ∩ R(A)
@@ -64,7 +63,55 @@ class Solution {
 public:
     vector<vector<int>> pacificAtlantic(vector<vector<int>>& matrix)
     {
+        if (matrix.empty()) return {};
+        const int n = matrix.size();
+        const int m = matrix[0].size();
 
+        const vector<int> dirs{0, 1, 0, -1, 0};
+
+        auto bfs = [&](queue<pair<int, int>>& q, vector<vector<int>>& v) {
+            while (!q.empty()) {
+                const int y = q.front().first;
+                const int x = q.front().second;
+                q.pop();
+                const int h = matrix[y][x];
+                if (v[y][x]) continue;
+                v[y][x] = true;
+                for (int i = 0; i < 4; ++i) {
+                    int tx = x + dirs[i];
+                    int ty = y + dirs[i + 1];
+                    if (tx < 0 || ty < 0 || tx == m || ty == n || matrix[ty][tx] < h) continue;
+                    if (v[ty][tx]) continue;
+                    q.push({ty, tx});
+                }
+            }
+        };
+
+        queue<pair<int, int>> qp;
+        queue<pair<int, int>> qa;
+        vector<vector<int>> vp(n, vector<int>(m));
+        vector<vector<int>> va(n, vector<int>(m));
+
+        for (int x = 0; x < m; ++x) {
+            qp.push({0, x}); // top
+            qa.push({n - 1, x}); // bottom
+        }
+
+        for (int y = 0; y < n; ++y) {
+            qp.push({y, 0}); // left
+            qa.push({y, m - 1}); // right
+        }
+
+        bfs(qp, vp);
+        bfs(qa, va);
+        
+        vector<vector<int>> res;
+        for (int i = 0; i < n; ++i) {
+            for (int j = 0; j < m; ++j) {
+                if (vp[i][j] && va[i][j]) res.emplace_back(vector<int>{i, j});
+            }
+        }
+        return res;
     }
 };
 // @lc code=end
@@ -111,6 +158,58 @@ public:
 //         dfs(m, x - 1, y, m[y][x], v);
 //         dfs(m, x, y + 1, m[y][x], v);
 //         dfs(m, x, y - 1, m[y][x], v);
+//     }
+// };
+
+// DP solution, O(mn*mn) in theory, no TLE in practice;
+// dp[i][j] := reachable to P/A {0, 1, 2, 1+2}
+// dp[i][j] |= dp[y][x] if there is an edge in G (connected to the ocean)
+// Stop if there is no more change.
+// class Solution {
+// public:
+//     vector<vector<int>> pacificAtlantic(vector<vector<int>>& matrix)
+//     {
+//         if (matrix.empty()) return {};
+//         const int n = matrix.size();
+//         const int m = matrix[0].size();
+//         vector<vector<int>> dp(n, vector<int>(m));
+
+//         for (int x = 0; x < m; ++x) {
+//             dp[0][x] |= 1;
+//             dp[n - 1][x] |= 2;
+//         }
+//         for (int y = 0; y < n; ++y) {
+//             dp[y][0] |= 1;
+//             dp[y][m - 1] |= 2;
+//         }
+
+//         const vector<int> dirs{0, -1, 0, 1, 0};
+
+//         while(true) {
+//             bool changed = false;
+//             for (int y = 0; y < n; ++y) {
+//                 for (int x = 0; x < m; ++x) {
+//                     for (int d = 0; d < 4; ++d) {
+//                         const int tx = x + dirs[d];
+//                         const int ty = y + dirs[d + 1];
+//                         if (tx < 0 || ty < 0 || tx == m || ty == n
+//                             || matrix[y][x] < matrix[ty][tx]
+//                             || (dp[y][x] | dp[ty][tx]) == dp[y][x]) continue;
+//                         dp[y][x] |= dp[ty][tx];
+//                         changed = true;
+//                     }
+//                 }
+//             }
+//             if (!changed) break;
+//         }
+
+//         vector<vector<int>> res;
+//         for (int i = 0; i < n; ++i) {
+//             for (int j = 0; j < m; ++j) {
+//                 if (dp[i][j] == 3) res.emplace_back(vector<int>{i, j});
+//             }
+//         }
+//         return res;
 //     }
 // };
 
