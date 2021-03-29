@@ -66,7 +66,7 @@ public:
         for (int price : prices) {
             int p_ik0_pre = p_ik0;
             p_ik0 = max(p_ik0, p_ik1 + price);
-            p_ik1 = max(p_ik1, p_ik0 - price - fee);
+            p_ik1 = max(p_ik1, p_ik0_pre - price - fee);
         }
         return p_ik0;
     }

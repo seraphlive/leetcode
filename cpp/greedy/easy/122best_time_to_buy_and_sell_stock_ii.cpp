@@ -75,8 +75,9 @@ public:
         int p_ik0 = 0;
         int p_ik1 = INT_MIN;
         for (int price : prices) {
+            int p_ik0_old = p_ik0;
             p_ik0 = max(p_ik0, p_ik1 + price);
-            p_ik1 = max(p_ik1, p_ik0 - price);
+            p_ik1 = max(p_ik1, p_ik0_old - price);
         }
         return p_ik0;
     }
