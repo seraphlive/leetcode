@@ -53,8 +53,7 @@
  */
 // TODO: Learn LIS(longest increasing sequence)
 // @lc code=start
-// LIS, O(nlogn) O(n)
-// https://leetcode.com/problems/russian-doll-envelopes/discuss/82778/Two-solutions-in-C%2B%2B-well-explained
+// LIS (Leetcode Q.300), DP + greedy + binary search, O(nlogn) O(n)
 using V = vector<int>;
 
 class Solution {
@@ -76,7 +75,7 @@ public:
 };
 // @lc code=end
 
-// DP O(nlog(n)+n^2) O(n)
+// Plain DP O(nlog(n)+n^2) O(n)
 // class Solution {
 // public:
 //     int maxEnvelopes(vector<vector<int>>& e)
