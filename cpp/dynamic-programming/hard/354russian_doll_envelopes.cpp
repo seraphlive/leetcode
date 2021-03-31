@@ -51,7 +51,7 @@
  * 
  * 
  */
-// TODO: Learn LIS(longest increasing sequence)
+
 // @lc code=start
 // LIS (Leetcode Q.300), DP + greedy + binary search, O(nlogn) O(n)
 using V = vector<int>;
@@ -83,12 +83,10 @@ public:
 //         int s = e.size();
 //         sort(begin(e), end(e));
 //         // array to record max num an envenlope can hold.
-//         int dp[s];
+//         vector<int> dp(s, 1);
 //         int res = 1;
-//         dp[0] = 1;
 
 //         for (int i = 1; i < s; ++i) {
-//             dp[i] = 1;
 //             for (int j = i - 1; j >= 0; --j) {
 //                 if (e[i][0] > e[j][0] && e[i][1] > e[j][1])
 //                     dp[i] = max(dp[i], dp[j] + 1);
