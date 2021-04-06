@@ -53,6 +53,8 @@
  */
 
 // @lc code=start
+// target is the number in the middle, which equals to n.
+// use math to find the formula for the result.
 class Solution {
 public:
     int minOperations(int n)
