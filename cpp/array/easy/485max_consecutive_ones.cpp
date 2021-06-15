@@ -37,16 +37,19 @@
 // @lc code=start
 class Solution {
 public:
-    int findMaxConsecutiveOnes(vector<int>& nums)
-    {
-        int max_cnt = 0;
-        int cnt = 0;
-        for (auto n : nums) {
-            if (n == 1) max_cnt = max(++cnt, max_cnt);
-            else cnt = 0;
-        }
-        return max_cnt;
+  int findMaxConsecutiveOnes(vector<int>& nums) {
+    int res = 0, cnt = 0;
+    for (int x : nums) {
+      if (x) {
+        ++cnt;
+      } else {
+        res = std::max(res, cnt);
+        cnt = 0;
+      }
     }
+    res = std::max(res, cnt);
+    return res;
+  }
 };
 // @lc code=end
 

@@ -34,21 +34,13 @@
 // Read/write two pointers.
 class Solution {
 public:
-    void moveZeroes(vector<int>& nums)
-    {
-        int r = 0, w = 0;
-        for (; r < nums.size(); ++r) {
-            if (nums[r] == 0) {
-                continue;
-            }
-            else {
-                nums[w++] = nums[r];
-            }
-        }
-        while (w < nums.size()) {
-            nums[w++] = 0;
-        }
+  void moveZeroes(vector<int>& nums) {
+    int r = 0, w = 0;
+    for (; r < nums.size(); ++r) {
+      if (nums[r] != 0) nums[w++] = nums[r];
     }
+    for (; w < nums.size(); ++w) nums[w] = 0;
+  }
 };
 // @lc code=end
 

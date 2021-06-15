@@ -43,45 +43,60 @@
  */
 
 // @lc code=start
-// hashtable
+// Math. O(n), O(1).
+using LL = long long;
+
 class Solution {
 public:
-    vector<int> findErrorNums(vector<int>& nums)
-    {
-        const int N = nums.size();
-        vector<int> map(N + 1);
-        vector<int> res(2);
-        for (int i = 0; i < N; ++i) {
-            ++map[nums[i]];
-        }
-        for (int i = 1; i < N + 1; ++i) {
-            if (map[i] == 0) res[1] = i;
-            if (map[i] == 2) res[0] = i;
-        }
-        return res;
+  vector<int> findErrorNums(vector<int>& nums) {
+    LL n = nums.size();
+    LL sum = 0, sums = 0;
+    for (int i : nums) {
+      sum += i;
+      sums += i * i;
     }
+
+    LL a = n * (n + 1) / 2 - sum; // mis - dup
+    LL b = n * (n + 1) * (2 * n + 1) / 6 - sums; // mis^2 - dup^2
+    int dup = (b / a - a) / 2;
+    int mis = (b / a + a) / 2;
+    return {dup, mis};
+  }
 };
 // @lc code=end
 
-// MATH. O(N), O(1)
+// hashtable, O(n), O(n).
 // class Solution {
 // public:
-//     vector<int> findErrorNums(vector<int>& nums)
-//     {
-//         long n = nums.size();
-//         long sum = 0;
-//         long sums = 0;
-//         for (auto i : nums) {
-//             sum += i;
-//             sums += i * i;
-//         }
-        
-//         // y - missing; x - duplicate
-//         auto a = n * (n + 1) / 2 - sum;  // y - x
-//         auto b = n * (n + 1) * (2 * n + 1) / 6 - sums; // y^2 - x^2
-//         vector<int> res(2);
-//         res[0] = (b / a - a) / 2;
-//         res[1] = (b / a + a) / 2;
-//         return res;
+//   vector<int> findErrorNums(vector<int>& nums) {
+//     int n = nums.size();
+//     vector<int> map(n + 1);
+//     for (int i : nums) ++map[i];
+
+//     int dup = -1, mis = -1;
+//     for (int i = 1; i <= n; ++i) {
+//       if (map[i] == 0) mis = i;
+//       if (map[i] == 2) dup = i;
 //     }
+//     return {dup, mis};
+//   }
+// };
+
+// In-place tagging elements. O(n), O(1). (original input is modified)
+// class Solution {
+// public:
+//   vector<int> findErrorNums(vector<int>& nums) {
+//     int dup = -1, mis = -1;
+//     for (int i : nums) {
+//       if (nums[abs(i) - 1] < 0) {
+//         dup = abs(i);
+//       } else {
+//         nums[abs(i) - 1] *= -1;
+//       }
+//     }
+//     for (int i = 0; i < nums.size(); ++i) {
+//       if (nums[i] > 0) mis = i + 1;
+//     }
+//     return {dup, mis};
+//   }
 // };
