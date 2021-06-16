@@ -55,29 +55,51 @@
  * 
  * 
  */
-// TODO: 2-pointers method.
+
 // @lc code=start
-// Binary search on range [1, n]. For each mid, count elements <= mid. If there
-// is no duplicate on the left, cnt should == mid, we then go to [mid+1, r].
-// Else cnt > mid which means duplicate is in [l, mid];
+// 2-pointers cycle checking for linked list. Treat the array as a linked list.
+// The index denotes the address of the node and value denotes the next position.
+// So duplicate value indicates that there is cycle.
 class Solution {
 public:
   int findDuplicate(vector<int>& nums) {
-    int n = nums.size();
-    int l = 1, r = n - 1;
-    while (l < r) {
-      int mid = l + (r - l) / 2;
-      int cnt = 0;
-      for (int i = 0; i < n; ++i) {
-        if (nums[i] <= mid) ++cnt;
-      }
-      if (cnt > mid) {
-        r = mid;
-      } else {
-        l = mid + 1;
-      }
+    // head pointer is 0;
+    int slow = nums[0], fast = nums[nums[0]];
+    while (slow != fast) {
+      slow = nums[slow];
+      fast = nums[nums[fast]];
     }
-    return l;
+    fast = 0;
+    while (slow != fast) {
+      slow = nums[slow];
+      fast = nums[fast];
+    }
+    return slow;
   }
 };
 // @lc code=end
+
+// Binary search on range [1, n]. For each mid, count elements <= mid. If there
+// is no duplicate on the left, cnt should == mid, we then go to [mid+1, r].
+// Else cnt > mid which means duplicate is in [l, mid];
+// O(nlogn) O(1)
+// class Solution {
+// public:
+//   int findDuplicate(vector<int>& nums) {
+//     int n = nums.size();
+//     int l = 1, r = n - 1;
+//     while (l < r) {
+//       int mid = l + (r - l) / 2;
+//       int cnt = 0;
+//       for (int i = 0; i < n; ++i) {
+//         if (nums[i] <= mid) ++cnt;
+//       }
+//       if (cnt > mid) {
+//         r = mid;
+//       } else {
+//         l = mid + 1;
+//       } 
+//     }
+//     return l;
+//   }
+// };

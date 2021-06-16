@@ -52,15 +52,22 @@
  */
 
 // @lc code=start
+// the required dis list can be [k, k - 1, ..., 1]. To construct this we have
+// res=[1, k+1, 2, k, 3, k-1, 4,...](using 1~k+1) concate other elements [k+2~n]
 class Solution {
 public:
-    vector<int> constructArray(int n, int k)
-    {
-        vector<int> res;
-        for (int i = 1, j = n; i <= j;)
-            res.push_back(k > 1 ? (k-- % 2 ? i++ : j--) : i++);
-        return res;
+  vector<int> constructArray(int n, int k) {
+    int l = 1, r = k + 1;
+    vector<int> res;
+    while (l <= r) {
+      res.push_back(l++);
+      if (l <= r) res.push_back(r--);
     }
+    for (int i = k + 2; i <= n; ++i) {
+      res.push_back(i);
+    }
+    return res;
+  }
 };
 // @lc code=end
 
