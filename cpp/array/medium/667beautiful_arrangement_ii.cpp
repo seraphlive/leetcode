@@ -54,6 +54,7 @@
 // @lc code=start
 // the required dis list can be [k, k - 1, ..., 1]. To construct this we have
 // res=[1, k+1, 2, k, 3, k-1, 4,...](using 1~k+1) concate other elements [k+2~n]
+// O(n)
 class Solution {
 public:
   vector<int> constructArray(int n, int k) {
