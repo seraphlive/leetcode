@@ -95,22 +95,15 @@
 // Two-pointers
 class Solution {
 public:
-    ListNode* getIntersectionNode(ListNode* headA, ListNode* headB)
-    {
-        auto p = headA;
-        auto q = headB;
-        while (p != q) {
-            if (!p)
-                p = headB;
-            else
-                p = p->next;
-            if (!q)
-                q = headA;
-            else
-                q = q->next;
-        }
-        return p;
-    }
+	ListNode* getIntersectionNode(ListNode* headA, ListNode* headB){
+		auto p1 = headA;
+		auto p2 = headB;
+		while (p1 != p2) {
+			p1 = (p1 == nullptr) ? headB : p1->next;
+			p2 = (p2 == nullptr) ? headA : p2->next;
+		}
+		return p1;
+	}
 };
 // @lc code=end
 

@@ -40,43 +40,39 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-// Iterative
+// iteration
 class Solution {
 public:
-    ListNode* reverseList(ListNode* head)
-    {
-        ListNode* prev = nullptr;
-        ListNode* cur = head;
-        ListNode* next = head;
-        while (cur) {
-            next = cur->next;
-            cur->next = prev;
-            prev = cur;
-            cur = next;
-        }
-        return prev;
+  ListNode* reverseList(ListNode* head) {
+    auto cur = head;
+    auto ne = head;
+    ListNode* pre = nullptr;
+
+    while (cur) {
+      ne = cur->next;
+      cur->next = pre;
+      pre = cur;
+      cur = ne;
     }
+    return pre;
+  }
 };
 
 // @lc code=end
 
-// Tail Recursive
-// class Solution {
-// public:
-//     ListNode* reverseList(ListNode* head)
-//     {
-//         return reverse(head, nullptr);
-//     }
-
-//     ListNode* reverse(ListNode* head, ListNode* rhead)
-//     {
-//         if (!head) return rhead;
-
-//         auto next = head->next;
-//         head->next = rhead;
-//         rhead = head;
-//         head = next;
-
-//         return reverse(head, rhead);
-//     }
-// };
+// Tail Recursion
+class Solution {
+public:
+  ListNode* reverseList(ListNode* head) {
+    return reverse(head, nullptr);
+  }
+private:
+  ListNode* reverse(ListNode* head, ListNode* rhead) {
+    if (!head) return rhead;
+    auto next = head->next;
+    head->next = rhead;
+    rhead = head;
+    head = next;
+    return reverse(head, rhead);
+  }
+};
