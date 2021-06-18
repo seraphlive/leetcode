@@ -63,25 +63,25 @@
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
+// Two-pointers
 class Solution {
 public:
-    ListNode* removeNthFromEnd(ListNode* head, int n)
-    {
-        auto slow = &head;
-        auto fast = head;
-        while (n--) {
-            fast = fast->next;
-        }
-        while (fast) {
-            fast = fast->next;
-            slow = &(*slow)->next;
-        }
-        auto entry = *slow;
-        *slow = entry->next;
-        delete entry;
-        entry = nullptr;
-        return head;
+  ListNode* removeNthFromEnd(ListNode* head, int n) {
+    ListNode dummy(-1);
+    dummy.next = head;
+    auto slow = &dummy;
+    auto fast = head;
+
+    while (n--) fast = fast->next;
+    while (fast) {
+      fast = fast->next;
+      slow = slow->next;
     }
+    auto t = slow->next;
+    slow->next = slow->next->next;
+    // delete/free t.
+    return dummy.next;
+  }
 };
 // @lc code=end
 
