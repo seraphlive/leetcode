@@ -45,29 +45,29 @@
  */
 class Solution {
 public:
-    bool isPalindrome(ListNode* head)
-    {
-        ListNode* prev = nullptr;
-        auto slow = head;
-        auto fast = head;
+  bool isPalindrome(ListNode* head) {
+    ListNode* pre = nullptr;
+    auto fast = head;
+    auto slow = head;
 
-        while (fast && fast->next) {
-            fast = fast->next->next;
-            auto tmp = slow->next;
-            slow->next = prev;
-            prev = slow;
-            slow = tmp;
-        }
-        if (fast) slow = slow->next;
-
-        // Reverse back while comparing if original list required not to be changed.
-        while (slow && prev) {
-            if (slow->val != prev->val) return false;
-            slow = slow->next;
-            prev = prev->next;
-        }
-        return true;
+    while (fast && fast->next) {
+      fast = fast->next->next;
+      auto t = slow;
+      slow = slow->next;
+      t->next = pre;
+      pre = t;
     }
+    if (fast) slow = slow->next;
+
+    // if it's required not to modify the linked list, set a flag to record the
+    // res and reverse the list back during the comparison.
+    while (slow && pre) {
+      if (slow->val != pre->val) return false;
+      pre = pre->next;
+      slow = slow->next;
+    }
+    return true;
+  }
 };
 // @lc code=end
 
