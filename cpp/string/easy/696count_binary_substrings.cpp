@@ -49,22 +49,24 @@
  */
 
 // @lc code=start
+// count 1/0 in consecutive groups, e.g. 0110001111->[1,2,3,4]
+// For adjacent group, the count of substrings will be min{cnt1, cnt2};
+// O(n), O(1).
 class Solution {
 public:
-    int countBinarySubstrings(string s)
-    {
-        int cur = 1, pre = 0, res = 0;
-        for (int i = 1; i < s.size(); ++i) {
-            if (s[i] == s[i - 1]) ++cur;
-            else {
-                res += min(cur, pre);
-                pre = cur;
-                cur = 1;
-            }
-        }
+  int countBinarySubstrings(string s) {
+    int cur = 1, pre = 0, res = 0;
+    for (int i = 1; i < s.size(); ++i) {
+      if (s[i] == s[i - 1]) {
+        ++cur;
+      } else {
         res += min(cur, pre);
-        return res;
+        pre = cur;
+        cur = 1;
+      }
     }
+    return res + min(cur, pre);
+  }
 };
 // @lc code=end
 
