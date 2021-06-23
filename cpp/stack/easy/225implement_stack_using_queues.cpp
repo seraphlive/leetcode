@@ -73,7 +73,7 @@
 // Single queue: Each time when pushing, lift the element to the top, which takes
 // O(n). Top and pop directly takes O(1).
 class MyStack {
-public:
+ public:
   /** Initialize your data structure here. */
   MyStack() {}
   
@@ -103,7 +103,7 @@ public:
   bool empty() {
     return q.empty();
   }
-private:
+ private:
   queue<int> q;
 };
 

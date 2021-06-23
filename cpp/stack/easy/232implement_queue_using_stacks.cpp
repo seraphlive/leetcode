@@ -83,7 +83,7 @@
 // is not empty, pop directly from out stack, otherwise move all data from in to
 // out then pop. Amortized O(1) poping.
 class MyQueue {
-public:
+ public:
   /** Initialize your data structure here. */
   MyQueue() : front_(0) {}
   
@@ -119,7 +119,7 @@ public:
   bool empty() {
     return in.empty() && out.empty();
   }
-private:
+ private:
   stack<int> in, out;
   int front_;
 };

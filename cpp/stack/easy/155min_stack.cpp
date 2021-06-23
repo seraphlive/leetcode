@@ -64,7 +64,7 @@
 // @lc code=start
 // Using two vectors.
 class MinStack {
-public:
+ public:
   /** initialize your data structure here. */
   MinStack() : min_(INT_MAX) {}
   
@@ -87,7 +87,7 @@ public:
   int getMin() {
     return m_st.back();
   }
-private:
+ private:
   vector<int> st, m_st;
   int min_;
 };
