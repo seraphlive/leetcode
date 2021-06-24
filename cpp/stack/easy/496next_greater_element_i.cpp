@@ -73,12 +73,10 @@ class Solution {
     stack<int> st;
     unordered_map<int, int> ht;
 
-    for (int n : nums2) {
-      while (!st.empty() && n > st.top()) {
-        ht[st.top()] = n;
-        st.pop();
-      }
-      st.push(n);
+    for (int i = nums2.size() - 1; i >= 0; --i) {
+      while (!st.empty() && st.top() <= nums2[i]) st.pop();
+      ht[nums2[i]] = (st.empty() ? -1 : st.top());
+      st.push(nums2[i]);
     }
 
     vector<int> res(nums1.size(), -1);
@@ -89,3 +87,26 @@ class Solution {
   }
 };
 // @lc code=end
+
+// Alternative implementation.
+// class Solution {
+//  public:
+//   vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+//     stack<int> st;
+//     unordered_map<int, int> ht;
+
+//     for (int n : nums2) {
+//       while (!st.empty() && n > st.top()) {
+//         ht[st.top()] = n;
+//         st.pop();
+//       }
+//       st.push(n);
+//     }
+
+//     vector<int> res(nums1.size(), -1);
+//     for (int i = 0; i < nums1.size(); ++i) {
+//       if (ht.find(nums1[i]) != ht.end()) res[i] = ht[nums1[i]];
+//     }
+//     return res;
+//   }
+// };

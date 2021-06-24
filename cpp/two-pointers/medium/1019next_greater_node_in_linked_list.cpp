@@ -79,7 +79,6 @@
  * };
  */
 // monotonic stack.
-
 class Solution {
  public:
   vector<int> nextLargerNodes(ListNode* head) {
@@ -90,14 +89,35 @@ class Solution {
       head = head->next;
     }
     vector<int> res(nums.size(), 0);
-    for (int i = 0; i < nums.size(); ++i) {
-      while (!st.empty() && nums[i] > nums[st.top()]) {
-        res[st.top()] = nums[i];
-        st.pop();
-      }
-      st.push(i);
+    for (int i = nums.size() - 1; i >= 0; --i) {
+      while (!st.empty() && st.top() <= nums[i]) st.pop();
+      res[i] = (st.empty() ? 0 : st.top());
+      st.push(nums[i]);
     }
+
     return res;
   }
 };
 // @lc code=end
+
+// Alternative implementation.
+// class Solution {
+//  public:
+//   vector<int> nextLargerNodes(ListNode* head) {
+//     vector<int> nums;
+//     stack<int> st;
+//     while (head) {
+//       nums.push_back(head->val);
+//       head = head->next;
+//     }
+//     vector<int> res(nums.size(), 0);
+//     for (int i = 0; i < nums.size(); ++i) {
+//       while (!st.empty() && nums[i] > nums[st.top()]) {
+//         res[st.top()] = nums[i];
+//         st.pop();
+//       }
+//       st.push(i);
+//     }
+//     return res;
+//   }
+// };

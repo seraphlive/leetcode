@@ -47,17 +47,33 @@ class Solution {
   vector<int> dailyTemperatures(vector<int>& t) {
     stack<int> st;
     vector<int> res(t.size(), 0);
-    for (int i = 0; i < t.size(); ++i) {
-      while (!st.empty() && t[i] > t[st.top()]) {
-        res[st.top()] = i - st.top();
-        st.pop();
-      }
+    for (int i = t.size() - 1; i >= 0; --i) {
+      while (!st.empty() && t[st.top()] <= t[i]) st.pop();
+      res[i] = (st.empty() ? 0 : st.top() - i);
       st.push(i);
     }
+
     return res;
   }
 };
 // @lc code=end
+
+// Alternative stack implementation.
+// class Solution {
+//  public:
+//   vector<int> dailyTemperatures(vector<int>& t) {
+//     stack<int> st;
+//     vector<int> res(t.size(), 0);
+//     for (int i = 0; i < t.size(); ++i) {
+//       while (!st.empty() && t[i] > t[st.top()]) {
+//         res[st.top()] = i - st.top();
+//         st.pop();
+//       }
+//       st.push(i);
+//     }
+//     return res;
+//   }
+// };
 
 // Directly calculation without using stack. If calculating from the end of the
 // sequence, for each i, all future temperatures have all been determined. So

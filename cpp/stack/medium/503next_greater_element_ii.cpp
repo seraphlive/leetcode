@@ -60,14 +60,32 @@ class Solution {
     vector<int> res(nums.size(), -1);
     int l = nums.size();
 
-    for (int i = 0; i < 2 * l; ++i) {
-      while (!st.empty() && nums[i % l] > nums[st.top()]) {
-        res[st.top()] = nums[i % l];
-        st.pop();
-      }
-      st.push(i % l);
+    for (int i = 2 * l - 1; i >= 0; --i) {
+      while (!st.empty() && st.top() <= nums[i % l]) st.pop();
+      res[i % l] = (st.empty() ? -1 : st.top());
+      st.push(nums[i % l]);
     }
+
     return res;
   }
 };
 // @lc code=end
+
+// Alternative implementation.
+// class Solution {
+//  public:
+//   vector<int> nextGreaterElements(vector<int>& nums) {
+//     stack<int> st;
+//     vector<int> res(nums.size(), -1);
+//     int l = nums.size();
+
+//     for (int i = 0; i < 2 * l; ++i) {
+//       while (!st.empty() && nums[i % l] > nums[st.top()]) {
+//         res[st.top()] = nums[i % l];
+//         st.pop();
+//       }
+//       st.push(i % l);
+//     }
+//     return res;
+//   }
+// };
